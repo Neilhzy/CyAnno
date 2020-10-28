@@ -5,12 +5,21 @@ A tool to predict cell labels of closely related (but mutually exclusive) cell t
 '''
 
 ##### Mandatory ######
+<<<<<<< Updated upstream
 handgatedFileinfo='example/Handgated.csv' 			## [Mandatory] hand-gated cells to be used for training
 LiveFileinfo= 'example/LivecellsTraining.csv'    	## [Mandatory] All Live cells of the samples used for handgating (i.e. training); these samples will also be labelled
 unlabelledDataset= 'example/Livecells.csv'    		## [Mandatory] All Live cells to be tested for annotation, i.e. for cell type identification
 relevantMarkers = ["0","1","2","3","4","5","6","7"] ## [Mandatory] lineage markers used for hand-gated; based on column names in FCS/CSV file  
 outdir = 'MultCent' 		
 
+=======
+handgatedFileinfo='/Users/ziyuanhe/Documents/GitHub/CyAnno/example/Handgated.csv' 			## [Mandatory] hand-gated cells to be used for training
+LiveFileinfo= '/Users/ziyuanhe/Documents/GitHub/CyAnno/example/LivecellsTraining.csv'    	## [Mandatory] All Live cells of the samples used for handgating (i.e. training); these samples will also be labelled
+unlabelledDataset= '/Users/ziyuanhe/Documents/GitHub/CyAnno/example/Livecells.csv'    		## [Mandatory] All Live cells to be tested for annotation, i.e. for cell type identification
+relevantMarkers = ["0","1","2","3","4","5","6","7"] ## [Mandatory] lineage markers used for hand-gated; based on column names in FCS/CSV file
+outdir = '/Users/ziyuanhe/Documents/GitHub/CyAnno/output/' 				## Mandatory when loadModel=False] any name of choice. If directory will hold saved session and labelled CSV file.
+loadSession = '' 	## [optional; valid only when loadModel=True]  if user wants to reuse the previously built models/training then, put the name of directory having all the session files.
+>>>>>>> Stashed changes
 
 
 ######### Optional #######
@@ -24,9 +33,9 @@ Findungated = True		## Logical; if True then 'ungated' cells will be predicted. 
 						## [True] if you have ungated population for some of the sample_ids but want to include ungated for other sample_ids set it to True
 						## [True] if you have not included ungated population for any of the sample_id and want to include ungated population in the classification, set it to True
 normalizeCell=True 		## Logical; if yes arcsine transformation with cofactor will we used to normalize both the handgated and unlabelled cell expression files.
-cofactor=5.0 			## valid only when normalizecell == True; this is the cofactor for arcsin transformation of raw expression values 
+cofactor=5.0 			## valid only when normalizecell == True; this is the cofactor for arcsin transformation of raw expression values
 header = 'infer' 		## 'infer' or 'None' ; does all the input csv files (LiveFileinfo, unlabelledDataset and handgatedFileinfo) contain header. infer means 'yes' otherwise its None
-nlandMarks = 10 		## number of landmarks cells you need from each cell type. [feault 10] good enough for most studies; higher values means nore neighbouring cells; improves training but reduce execution speed 
+nlandMarks = 10 		## number of landmarks cells you need from each cell type. [feault 10] good enough for most studies; higher values means nore neighbouring cells; improves training but reduce execution speed
 cellCount = 20			## Minimum number of cells that should be present in the entire training dataset.
 index_col = False 		## [For CSV only; False or 0] rownames in Marker expression csv file to be considered or not ; 0 means first column to use for rowname else use False; if you known that first column is marker expression value then set this to False
 calcPvalue = False 		## [True/False] [Slow] if you want to calculate p-value of F1 score by randonly permuting the cell labels and rechecking F1 score by comparing with orignal F1 score over 1000 interations  
@@ -39,8 +48,14 @@ LandmarkPlots = False	## scatter plots that shows where are high density cells ;
 ########################### Do Not Edit ######################################
 ##############################################################################
 plotlogLoss = False
+<<<<<<< Updated upstream
 ProjectName = outdir
 train = None ## when loadmodel = True then obviously you dont need train object again ; all the models will be loaded as selfobject later on in the script 
+=======
+calcPvalue = False
+LandmarkPlots = False
+train = None ## when loadmodel = True then obviously you dont need train object again ; all the models will be loaded as selfobject later on in the script
+>>>>>>> Stashed changes
 if not loadModel: ## if you are not loading previously build model from ProjectName
     DateTime= datetime.datetime.now()
     ProjectName = outdir + str("_") + str(DateTime.day) + str('_') + str(DateTime.month) + str('_') + str(DateTime.year) + str('_') + str(DateTime.hour) + str('_') + str(DateTime.second)
@@ -64,5 +79,3 @@ e2b(Fileinfo=unlabelledDataset,
             calcPvalue=calcPvalue,
             header=header,
             ic=index_col)
-
-
